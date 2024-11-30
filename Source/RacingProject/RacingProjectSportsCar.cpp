@@ -67,3 +67,8 @@ ARacingProjectSportsCar::ARacingProjectSportsCar()
 	GetChaosVehicleMovement()->SteeringSetup.SteeringType = ESteeringType::Ackermann;
 	GetChaosVehicleMovement()->SteeringSetup.AngleRatio = 0.7f;
 }
+
+void ARacingProjectSportsCar::UpdateCheckpointInfo(int32 checkpointNumber)
+{
+	_checkpointNumber = checkpointNumber;
+}
