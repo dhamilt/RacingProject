@@ -5,6 +5,7 @@
 #include "RacingProjectSportsWheelFront.h"
 #include "RacingProjectSportsWheelRear.h"
 #include "ChaosWheeledVehicleMovementComponent.h"
+#include "RaceResultsManager.h"
 
 ARacingProjectSportsCar::ARacingProjectSportsCar()
 {
@@ -71,4 +72,9 @@ ARacingProjectSportsCar::ARacingProjectSportsCar()
 void ARacingProjectSportsCar::UpdateCheckpointInfo(int32 checkpointNumber)
 {
 	_checkpointNumber = checkpointNumber;
+	if (raceManager.Get())
+	{
+		raceManager.Get()->DeactivateCurrentCheckpoint(checkpointNumber);
+		raceManager.Get()->ActivateNextCheckpoint(checkpointNumber);
+	}
 }

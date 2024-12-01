@@ -3,17 +3,20 @@
 
 #include "MyCheckpoint.h"
 #include "VehicleInterface.h"
+#include "Components/BoxComponent.h"
+#include "Components/StaticMeshComponent.h"
 
-//void AMyCheckpoint::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* Other, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
-//{
-//}
 
 AMyCheckpoint::AMyCheckpoint()
 {
-	OnActorBeginOverlap.AddDynamic(this, &AMyCheckpoint::UpdateVehicle);
+	checkpointMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+	RootComponent = checkpointMesh;
+	boxComponent = CreateDefaultSubobject<UBoxComponent>(TEXT("Trigger Volume"));
+	boxComponent->SetupAttachment(checkpointMesh);
+	boxComponent->OnComponentBeginOverlap.AddDynamic(this, &AMyCheckpoint::UpdateVehicle);
 }
 
-void AMyCheckpoint::UpdateVehicle(AActor* OverlappedActor, AActor* OtherActor)
+void AMyCheckpoint::UpdateVehicle(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if (IVehicleInterface* vehicleInterface = Cast<IVehicleInterface>(OtherActor))
 	{

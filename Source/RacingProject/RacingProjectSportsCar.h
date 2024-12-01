@@ -7,6 +7,7 @@
 #include "VehicleInterface.h"
 #include "RacingProjectSportsCar.generated.h"
 
+class ARaceResultsManager;
 
 /**
  *  Sports car wheeled vehicle implementation
@@ -23,4 +24,8 @@ public:
 	virtual void UpdateCheckpointInfo(int32 checkpointNumber) override;
 private:
 	int32 _checkpointNumber;
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category ="Race Manager")
+	TSoftObjectPtr<ARaceResultsManager> raceManager;
 };
