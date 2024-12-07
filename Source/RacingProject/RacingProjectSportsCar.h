@@ -8,6 +8,7 @@
 #include "RacingProjectSportsCar.generated.h"
 
 class ARaceResultsManager;
+class URaceMarkerComponent;
 
 /**
  *  Sports car wheeled vehicle implementation
@@ -28,4 +29,6 @@ private:
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category ="Race Manager")
 	TSoftObjectPtr<ARaceResultsManager> raceManager;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Race Marker")
+	URaceMarkerComponent* raceMarker;
 };

@@ -3,6 +3,10 @@
 
 #include "RaceResultsManager.h"
 #include "MyCheckpoint.h"
+#include "RacingProjectSportsCar.h"
+#include "Kismet/GameplayStatics.h"
+#include "RaceMarkerComponent.h"
+
 // Sets default values
 ARaceResultsManager::ARaceResultsManager()
 {
@@ -25,6 +29,7 @@ void ARaceResultsManager::ActivateNextCheckpoint(int32 currentCheckpoint)
 		index = currentCheckpoint + 1;
 	if (!checkpoints[index].Get()->checkpointMesh->IsVisible())
 		checkpoints[index].Get()->checkpointMesh->ToggleVisibility(true);
+	SetCheckpointTarget(index);
 }
 
 void ARaceResultsManager::DisableAllCheckpoints(TArray<int32> exclusions)
@@ -40,11 +45,28 @@ void ARaceResultsManager::DisableAllCheckpoints(TArray<int32> exclusions)
 
 }
 
+void ARaceResultsManager::FindRaceCar()
+{
+	TArray<AActor*> actors;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ARacingProjectSportsCar::StaticClass(), actors);
+	if (!actors.IsEmpty())
+		raceCar = CastChecked<ARacingProjectSportsCar>(actors[0]);
+
+}
+
+void ARaceResultsManager::SetCheckpointTarget(int32 checkPointTarget)
+{
+	if(checkPointTarget < checkpoints.Num())
+	 raceCar.Get()->raceMarker->target =  checkpoints[checkPointTarget].Get();
+}
+
 // Called when the game starts or when spawned
 void ARaceResultsManager::BeginPlay()
 {
 	Super::BeginPlay();
 	DisableAllCheckpoints({ 0 });
+	FindRaceCar();
+	SetCheckpointTarget(0);
 }
 
 // Called every frame

@@ -7,6 +7,7 @@
 #include "RaceResultsManager.generated.h"
 
 class AMyCheckpoint;
+class ARacingProjectSportsCar;
 
 UCLASS()
 class RACINGPROJECT_API ARaceResultsManager : public AActor
@@ -20,6 +21,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Checkpoints")
 	TArray<TSoftObjectPtr<AMyCheckpoint>> checkpoints;
 	
+	UPROPERTY(VisibleAnywhere, Category = "Race Manager")
+	TSoftObjectPtr<ARacingProjectSportsCar> raceCar;
 
 protected:
 	// Called when the game starts or when spawned
@@ -33,4 +36,8 @@ public:
 	// Activates next checkpoint to view
 	void ActivateNextCheckpoint(int32 currentCheckpoint);
 	void DisableAllCheckpoints(TArray<int32> exclusions = TArray<int32>());
+	// Finds the first instance of the wheeled pawn
+	void FindRaceCar();
+	// Sets checkpoint target for race arrow marker
+	void SetCheckpointTarget(int32 checkPointTarget);
 };

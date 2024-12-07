@@ -6,6 +6,7 @@
 #include "RacingProjectSportsWheelRear.h"
 #include "ChaosWheeledVehicleMovementComponent.h"
 #include "RaceResultsManager.h"
+#include "RaceMarkerComponent.h"
 
 ARacingProjectSportsCar::ARacingProjectSportsCar()
 {
@@ -67,6 +68,10 @@ ARacingProjectSportsCar::ARacingProjectSportsCar()
 	// NOTE: Check the Blueprint asset for the Steering Curve
 	GetChaosVehicleMovement()->SteeringSetup.SteeringType = ESteeringType::Ackermann;
 	GetChaosVehicleMovement()->SteeringSetup.AngleRatio = 0.7f;
+
+	// Set up Race Marker
+	raceMarker = CreateDefaultSubobject<URaceMarkerComponent>(TEXT("Race Marker"));
+	raceMarker->SetupAttachment(GetMesh());
 }
 
 void ARacingProjectSportsCar::UpdateCheckpointInfo(int32 checkpointNumber)
