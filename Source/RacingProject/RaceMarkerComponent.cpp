@@ -16,7 +16,7 @@ URaceMarkerComponent::URaceMarkerComponent()
 }
 
 
-FQuat URaceMarkerComponent::FindLookRotation()
+FRotator URaceMarkerComponent::FindLookAtRotation()
 {
 	// Set the arbituary axis for rotation to the X-Axis
 	FVector axisOfRotation = FVector(0, 0, 1);
@@ -27,7 +27,7 @@ FQuat URaceMarkerComponent::FindLookRotation()
 	float dot = lookDir.Dot(targetLoc);
 	float angle = FMath::Acos(dot);
 	FRotator rot = FRotationMatrix::MakeFromX(targetLoc - GetRelativeLocation()).Rotator();
-	return rot.Quaternion();
+	return rot;
 }
 
 // Called when the game starts

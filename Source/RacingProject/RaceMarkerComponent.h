@@ -21,9 +21,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Race Marker")
 	TSoftObjectPtr<AActor> target;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Race Marker")
-	
-	FQuat FindLookRotation();
+	UFUNCTION(BlueprintCallable, Category = "Race Marker")
+	FRotator FindLookAtRotation();
 
 protected:
 	// Called when the game starts

@@ -56,7 +56,7 @@ void ARaceResultsManager::FindRaceCar()
 
 void ARaceResultsManager::SetCheckpointTarget(int32 checkPointTarget)
 {
-	if(checkPointTarget < checkpoints.Num())
+	if(checkPointTarget < checkpoints.Num() && raceCar.IsValid())
 	 raceCar.Get()->raceMarker->target =  checkpoints[checkPointTarget].Get();
 }
 
@@ -66,7 +66,8 @@ void ARaceResultsManager::BeginPlay()
 	Super::BeginPlay();
 	DisableAllCheckpoints({ 0 });
 	FindRaceCar();
-	SetCheckpointTarget(0);
+	if(raceCar.IsValid())
+		SetCheckpointTarget(0);
 }
 
 // Called every frame
