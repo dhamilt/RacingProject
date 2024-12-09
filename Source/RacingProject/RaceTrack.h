@@ -7,6 +7,7 @@
 #include "RaceTrack.generated.h"
 
 class USplineComponent;
+class UPrimitiveComponent;
 class UHierarchicalInstancedStaticMeshComponent;
 
 UCLASS(Blueprintable, Category = "Race Track")
@@ -27,6 +28,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Race Track")
 	float RotationOffset;
 
+private:
+	TArray<FTransform> checkpointTransforms;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -40,4 +44,16 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Race Track")
 	void AddCheckpoints();
+
+	UFUNCTION(BlueprintCallable, Category = "Race Track")
+	void EnableCheckpoint(int32 index);
+
+	UFUNCTION(BlueprintCallable, Category = "Race Track")
+	void DisableCheckpoints(int32 first, int32 last);
+
+	UFUNCTION(BlueprintCallable, Category = "Race Track")
+	void DisableCheckpoint(int32 index);
+
+	UFUNCTION(BlueprintCallable, Category = "Race Track")
+	void NextCheckpoint(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool FromSweep, const FHitResult& SweepResult);
 };
