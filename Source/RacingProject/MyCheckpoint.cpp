@@ -2,7 +2,7 @@
 
 
 #include "MyCheckpoint.h"
-#include "VehicleInterface.h"
+#include "RacerInterface.h"
 #include "Components/BoxComponent.h"
 #include "Components/StaticMeshComponent.h"
 
@@ -18,7 +18,7 @@ AMyCheckpoint::AMyCheckpoint()
 
 void AMyCheckpoint::UpdateVehicle(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (IVehicleInterface* vehicleInterface = Cast<IVehicleInterface>(OtherActor))
+	if (IRacerInterface* vehicleInterface = Cast<IRacerInterface>(OtherActor))
 	{
 		vehicleInterface->UpdateCheckpointInfo(checkpointNumber);
 	}

@@ -74,6 +74,11 @@ ARacingProjectSportsCar::ARacingProjectSportsCar()
 	raceMarker->SetupAttachment(GetMesh());
 }
 
+int32 ARacingProjectSportsCar::GetCurrentLap() const
+{
+	return currentLap;
+}
+
 void ARacingProjectSportsCar::UpdateCheckpointInfo(int32 checkpointNumber)
 {
 	_checkpointNumber = checkpointNumber;
@@ -82,4 +87,14 @@ void ARacingProjectSportsCar::UpdateCheckpointInfo(int32 checkpointNumber)
 		raceManager.Get()->DeactivateCurrentCheckpoint(checkpointNumber);
 		raceManager.Get()->ActivateNextCheckpoint(checkpointNumber);
 	}
+}
+
+void ARacingProjectSportsCar::UpdateLap()
+{
+	OnLapFinished.ExecuteIfBound();
+
+	if (currentLap == numOfLapsForRace)
+		OnRaceFinished.ExecuteIfBound();
+	else
+		currentLap++;
 }
