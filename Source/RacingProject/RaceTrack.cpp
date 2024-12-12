@@ -5,7 +5,6 @@
 #include "Components/SplineComponent.h"
 #include "Components/PrimitiveComponent.h"
 #include "Components/HierarchicalInstancedStaticMeshComponent.h"
-#include "RacerInterface.h"
 
 // Sets default values
 ARaceTrack::ARaceTrack()
@@ -82,13 +81,6 @@ void ARaceTrack::NextCheckpoint(UPrimitiveComponent* OverlappedComponent, AActor
 {
 	int32 instanceIndex = SweepResult.Item;
 	DisableCheckpoint(instanceIndex);
-	if (instanceIndex == 0)
-	{
-		if (IRacerInterface* racer = CastChecked<IRacerInterface>(OtherActor))
-		{
-			racer->UpdateLap();
-		}
-	}
 	int32 next = instanceIndex + 1 < Checkpoints->GetNumInstances() ? instanceIndex + 1 : 0;
 	EnableCheckpoint(next);
 }
